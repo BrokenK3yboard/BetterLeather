@@ -90,7 +90,7 @@ repositories {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-40.2.0"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-43.2.0"
 }
 
 jar {

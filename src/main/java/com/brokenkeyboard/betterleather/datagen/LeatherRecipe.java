@@ -8,7 +8,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags;
 
@@ -64,8 +65,8 @@ public class LeatherRecipe extends CustomRecipe {
 
         for(int i = 0; i < nonnulllist.size(); ++i) {
             ItemStack itemstack = container.getItem(i);
-            if (itemstack.hasContainerItem()) {
-                nonnulllist.set(i, itemstack.getContainerItem());
+            if (itemstack.hasCraftingRemainingItem()) {
+                nonnulllist.set(i, itemstack.getCraftingRemainingItem());
             } else if (itemstack.is(Tags.Items.SHEARS)) {
                 ItemStack shears = itemstack.copy();
                 shears.setDamageValue(itemstack.getDamageValue() + 3);

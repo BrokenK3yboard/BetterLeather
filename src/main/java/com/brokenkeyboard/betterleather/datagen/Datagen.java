@@ -3,9 +3,9 @@ package com.brokenkeyboard.betterleather.datagen;
 import com.brokenkeyboard.betterleather.BetterLeather;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
 @Mod.EventBusSubscriber(modid = BetterLeather.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Datagen {
@@ -16,8 +16,8 @@ public class Datagen {
         ExistingFileHelper fileHelper = event.getExistingFileHelper();
 
         if (event.includeServer()) {
-            generator.addProvider(new Smithing(generator));
-            generator.addProvider(new Recipes(generator));
+            generator.addProvider(true, new Smithing(generator));
+            generator.addProvider(true, new Recipes(generator));
         }
     }
 }

@@ -19,9 +19,4 @@ public class HideBundleCondition implements ICondition {
     public boolean test(IContext context) {
         return BetterLeather.hideBundle;
     }
-
-    @Override
-    public boolean test() {
-        return false;
-    }
 }

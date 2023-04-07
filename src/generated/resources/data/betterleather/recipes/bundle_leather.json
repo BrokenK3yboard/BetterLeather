@@ -10,19 +10,19 @@
       "recipe": {
         "type": "minecraft:crafting_shaped",
         "group": "bundles",
+        "key": {
+          "L": {
+            "tag": "forge:leather"
+          },
+          "S": {
+            "tag": "forge:string"
+          }
+        },
         "pattern": [
           "SLS",
           "L L",
           "LLL"
         ],
-        "key": {
-          "S": {
-            "tag": "forge:string"
-          },
-          "L": {
-            "tag": "forge:leather"
-          }
-        },
         "result": {
           "item": "minecraft:bundle"
         }

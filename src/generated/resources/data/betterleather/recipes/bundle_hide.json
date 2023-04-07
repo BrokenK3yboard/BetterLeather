@@ -10,19 +10,19 @@
       "recipe": {
         "type": "minecraft:crafting_shaped",
         "group": "bundles",
+        "key": {
+          "H": {
+            "item": "minecraft:rabbit_hide"
+          },
+          "S": {
+            "tag": "forge:string"
+          }
+        },
         "pattern": [
           "SHS",
           "H H",
           "HHH"
         ],
-        "key": {
-          "S": {
-            "tag": "forge:string"
-          },
-          "H": {
-            "item": "minecraft:rabbit_hide"
-          }
-        },
         "result": {
           "item": "minecraft:bundle"
         }

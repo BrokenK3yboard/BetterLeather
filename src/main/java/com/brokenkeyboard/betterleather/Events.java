@@ -4,14 +4,13 @@ import com.brokenkeyboard.betterleather.datagen.conditions.HideBundleCondition;
 import com.brokenkeyboard.betterleather.datagen.conditions.LeatherBundleCondition;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.world.item.DyeableLeatherItem;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 
 public class Events {
 
@@ -19,22 +18,18 @@ public class Events {
     public static class ModEvents {
 
         @SubscribeEvent
-        public static void armorColor(ColorHandlerEvent.Item event) {
+        public static void registerColorEvents(RegisterColorHandlersEvent.Item event) {
             CauldronInteraction.WATER.put(BetterLeather.LEATHER_HELMET.get(), CauldronInteraction.DYED_ITEM);
             CauldronInteraction.WATER.put(BetterLeather.LEATHER_CHESTPLATE.get(), CauldronInteraction.DYED_ITEM);
             CauldronInteraction.WATER.put(BetterLeather.LEATHER_LEGGINGS.get(), CauldronInteraction.DYED_ITEM);
             CauldronInteraction.WATER.put(BetterLeather.LEATHER_BOOTS.get(), CauldronInteraction.DYED_ITEM);
             CauldronInteraction.WATER.put(BetterLeather.BUNDLE.get(), CauldronInteraction.DYED_ITEM);
+            event.register((stack, value) -> value > 0 ? -1 : ((DyeableLeatherItem)stack.getItem()).getColor(stack), BetterLeather.BUNDLE.get());
         }
 
         @SubscribeEvent
-        public static void registerItemColor(ColorHandlerEvent.Item event) {
-            event.getItemColors().register((stack, value) -> value > 0 ? -1 : ((DyeableLeatherItem)stack.getItem()).getColor(stack), BetterLeather.BUNDLE.get());
-        }
-
-        @SubscribeEvent
-        public static void registerSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
-            if (!(event.getRegistry().getRegistryKey() == ForgeRegistries.Keys.RECIPE_SERIALIZERS)) return;
+        public static void registerSerializers(RegisterEvent event) {
+            if (!(event.getRegistryKey() == ForgeRegistries.Keys.RECIPE_SERIALIZERS)) return;
             CraftingHelper.register(HideBundleCondition.SERIALIZER);
             CraftingHelper.register(LeatherBundleCondition.SERIALIZER);
         }
