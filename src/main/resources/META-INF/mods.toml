@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="GPLv3"
+
+[[mods]]
+modId="betterleather"
+version="${file.jarVersion}"
+displayName="Better Leather"
+logoFile="betterleather.png"
+credits="BrokenKeyboard"
+authors="BrokenKeyboard"
+description='''Attempts to "fix" leather as a resource and improves leather armor by giving it unique gameplay mechanics.'''
+
+[[dependencies.betterleather]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.betterleather]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2]"
+    ordering="NONE"
+    side="BOTH"

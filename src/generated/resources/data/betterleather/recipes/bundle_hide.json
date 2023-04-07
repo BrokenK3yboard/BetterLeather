@@ -1,0 +1,32 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "betterleather:hide_bundle_enabled"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "bundles",
+        "pattern": [
+          "SHS",
+          "H H",
+          "HHH"
+        ],
+        "key": {
+          "S": {
+            "tag": "forge:string"
+          },
+          "H": {
+            "item": "minecraft:rabbit_hide"
+          }
+        },
+        "result": {
+          "item": "minecraft:bundle"
+        }
+      }
+    }
+  ]
+}
