@@ -1,10 +1,10 @@
 {
-  "type": "betterleather:kit_upgrade",
+  "type": "leatheroverhaul:kit_upgrade",
   "base": {
     "item": "minecraft:leather_leggings"
   },
   "addition": {
-    "item": "betterleather:armor_kit"
+    "item": "leatheroverhaul:armor_kit"
   },
   "result": {
     "item": "minecraft:leather_leggings"

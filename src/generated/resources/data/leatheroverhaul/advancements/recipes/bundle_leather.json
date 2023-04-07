@@ -1,0 +1,54 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "type": "leatheroverhaul:leather_bundle_enabled"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "minecraft:bundle"
+          ]
+        },
+        "criteria": {
+          "has_string": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "tag": "forge:string"
+                }
+              ]
+            }
+          },
+          "has_leather": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "tag": "forge:leather"
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "minecraft:bundle"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_string",
+            "has_leather",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

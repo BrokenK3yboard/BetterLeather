@@ -2,17 +2,29 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:leather_chestplate_smithing"
+      "leatheroverhaul:armor_kit"
     ]
   },
   "criteria": {
-    "has_armor_kit": {
+    "has_string": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "leatheroverhaul:armor_kit"
+              "minecraft:string"
+            ]
+          }
+        ]
+      }
+    },
+    "has_leather": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:leather"
             ]
           }
         ]
@@ -21,13 +33,14 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:leather_chestplate_smithing"
+        "recipe": "leatheroverhaul:armor_kit"
       }
     }
   },
   "requirements": [
     [
-      "has_armor_kit",
+      "has_string",
+      "has_leather",
       "has_the_recipe"
     ]
   ]

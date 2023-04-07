@@ -16,7 +16,7 @@ apply plugin: 'net.minecraftforge.gradle'
 
 
 version = "${mod_version}"
-group = 'com.brokenkeyboard.betterleather'
+group = 'com.brokenkeyboard.leatheroverhaul'
 archivesBaseName = "${mod_name}-${mod_loader}-${minecraft_version}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -30,10 +30,10 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'betterleather'
+            property 'forge.enabledGameTestNamespaces', 'leatheroverhaul'
 
             mods {
-                betterleather {
+                leatheroverhaul {
                     source sourceSets.main
                 }
             }
@@ -44,10 +44,10 @@ minecraft {
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'betterleather'
+            property 'forge.enabledGameTestNamespaces', 'leatheroverhaul'
 
             mods {
-                betterleather {
+                leatheroverhaul {
                     source sourceSets.main
                 }
             }
@@ -58,10 +58,10 @@ minecraft {
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'betterleather'
+            property 'forge.enabledGameTestNamespaces', 'leatheroverhaul'
 
             mods {
-                betterleather {
+                leatheroverhaul {
                     source sourceSets.main
                 }
             }
@@ -73,10 +73,10 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'betterleather', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'leatheroverhaul', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                betterleather {
+                leatheroverhaul {
                     source sourceSets.main
                 }
             }
