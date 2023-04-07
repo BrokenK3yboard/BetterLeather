@@ -1,0 +1,19 @@
+{
+  "type": "leatheroverhaul:leather_cow",
+  "conditions": [
+    {
+      "condition": "minecraft:alternative",
+      "terms": [
+        {
+          "condition": "forge:loot_table_id",
+          "loot_table_id": "minecraft:entities/cow"
+        },
+        {
+          "condition": "forge:loot_table_id",
+          "loot_table_id": "minecraft:entities/mooshroom"
+        }
+      ]
+    }
+  ],
+  "chance": 1.0
+}

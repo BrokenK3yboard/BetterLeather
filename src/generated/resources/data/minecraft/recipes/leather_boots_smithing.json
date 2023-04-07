@@ -1,7 +1,7 @@
 {
-  "type": "betterleather:kit_upgrade",
+  "type": "leatheroverhaul:kit_upgrade",
   "addition": {
-    "item": "betterleather:armor_kit"
+    "item": "leatheroverhaul:armor_kit"
   },
   "base": {
     "item": "minecraft:leather_boots"

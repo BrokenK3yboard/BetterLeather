@@ -3,22 +3,22 @@ loaderVersion="[43,)"
 license="GPLv3"
 
 [[mods]]
-modId="betterleather"
+modId="leatheroverhaul"
 version="${file.jarVersion}"
-displayName="Better Leather"
-logoFile="betterleather.png"
+displayName="Leather Overhaul"
+logoFile="leatheroverhaul.png"
 credits="BrokenKeyboard"
 authors="BrokenKeyboard"
 description='''Attempts to "fix" leather as a resource and improves leather armor by giving it unique gameplay mechanics.'''
 
-[[dependencies.betterleather]]
+[[dependencies.leatheroverhaul]]
     modId="forge"
     mandatory=true
     versionRange="[43,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.betterleather]]
+[[dependencies.leatheroverhaul]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.19.2]"

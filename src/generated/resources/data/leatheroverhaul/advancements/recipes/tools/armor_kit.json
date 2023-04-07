@@ -1,12 +1,24 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_armor_kit": {
+    "has_leather": {
       "conditions": {
         "items": [
           {
             "items": [
-              "leatheroverhaul:armor_kit"
+              "minecraft:leather"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_string": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:string"
             ]
           }
         ]
@@ -15,20 +27,21 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:leather_helmet_smithing"
+        "recipe": "leatheroverhaul:armor_kit"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_armor_kit",
+      "has_string",
+      "has_leather",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:leather_helmet_smithing"
+      "leatheroverhaul:armor_kit"
     ]
   }
 }

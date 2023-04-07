@@ -1,0 +1,32 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "leatheroverhaul:leather_bundle_enabled"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "bundles",
+        "key": {
+          "L": {
+            "tag": "forge:leather"
+          },
+          "S": {
+            "tag": "forge:string"
+          }
+        },
+        "pattern": [
+          "SLS",
+          "L L",
+          "LLL"
+        ],
+        "result": {
+          "item": "minecraft:bundle"
+        }
+      }
+    }
+  ]
+}
