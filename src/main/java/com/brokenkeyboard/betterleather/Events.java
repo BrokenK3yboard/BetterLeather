@@ -19,16 +19,12 @@ public class Events {
     public static class ModEvents {
 
         @SubscribeEvent
-        public static void armorColor(ColorHandlerEvent.Item event) {
+        public static void registerColorEvents(ColorHandlerEvent.Item event) {
             CauldronInteraction.WATER.put(BetterLeather.LEATHER_HELMET.get(), CauldronInteraction.DYED_ITEM);
             CauldronInteraction.WATER.put(BetterLeather.LEATHER_CHESTPLATE.get(), CauldronInteraction.DYED_ITEM);
             CauldronInteraction.WATER.put(BetterLeather.LEATHER_LEGGINGS.get(), CauldronInteraction.DYED_ITEM);
             CauldronInteraction.WATER.put(BetterLeather.LEATHER_BOOTS.get(), CauldronInteraction.DYED_ITEM);
             CauldronInteraction.WATER.put(BetterLeather.BUNDLE.get(), CauldronInteraction.DYED_ITEM);
-        }
-
-        @SubscribeEvent
-        public static void registerItemColor(ColorHandlerEvent.Item event) {
             event.getItemColors().register((stack, value) -> value > 0 ? -1 : ((DyeableLeatherItem)stack.getItem()).getColor(stack), BetterLeather.BUNDLE.get());
         }
 
