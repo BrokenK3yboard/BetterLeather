@@ -25,7 +25,7 @@ public class Smithing extends RecipeProvider {
     }
 
     public static UpgradeRecipeBuilder upgradeRecipe(Ingredient input, Ingredient ingredient, Item result) {
-        return new UpgradeRecipeBuilder(UpgradeRecipe.Serializer.INSTANCE, input, ingredient, result);
+        return new UpgradeRecipeBuilder(ArmorkitUpgrade.Serializer.INSTANCE, input, ingredient, result);
     }
 
     protected static void armorUpgrade(Consumer<FinishedRecipe> consumer, Item input, Item ingredient) {

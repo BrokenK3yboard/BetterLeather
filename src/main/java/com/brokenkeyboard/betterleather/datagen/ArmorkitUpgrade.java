@@ -12,16 +12,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.UpgradeRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.jetbrains.annotations.NotNull;
 
-public class UpgradeRecipe extends net.minecraft.world.item.crafting.UpgradeRecipe {
+public class ArmorkitUpgrade extends UpgradeRecipe {
     final Ingredient input;
     final Ingredient ingredient;
     final ItemStack result;
 
-    public UpgradeRecipe(ResourceLocation location, Ingredient input, Ingredient ingredient, ItemStack result) {
+    public ArmorkitUpgrade(ResourceLocation location, Ingredient input, Ingredient ingredient, ItemStack result) {
         super(location, input, ingredient, result);
         this.input = input;
         this.ingredient = ingredient;
@@ -50,27 +51,27 @@ public class UpgradeRecipe extends net.minecraft.world.item.crafting.UpgradeReci
         return result;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<UpgradeRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<ArmorkitUpgrade> {
         public static final Serializer INSTANCE = new Serializer();
 
         @Override
-        public UpgradeRecipe fromJson(ResourceLocation location, JsonObject object) {
+        public ArmorkitUpgrade fromJson(ResourceLocation location, JsonObject object) {
             Ingredient ingredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(object, "base"));
             Ingredient ingredient1 = Ingredient.fromJson(GsonHelper.getAsJsonObject(object, "addition"));
             ItemStack itemstack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(object, "result"));
-            return new UpgradeRecipe(location, ingredient, ingredient1, itemstack);
+            return new ArmorkitUpgrade(location, ingredient, ingredient1, itemstack);
         }
 
         @Override
-        public UpgradeRecipe fromNetwork(ResourceLocation location, FriendlyByteBuf object) {
+        public ArmorkitUpgrade fromNetwork(ResourceLocation location, FriendlyByteBuf object) {
             Ingredient ingredient = Ingredient.fromNetwork(object);
             Ingredient ingredient1 = Ingredient.fromNetwork(object);
             ItemStack itemstack = object.readItem();
-            return new UpgradeRecipe(location, ingredient, ingredient1, itemstack);
+            return new ArmorkitUpgrade(location, ingredient, ingredient1, itemstack);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf location, UpgradeRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf location, ArmorkitUpgrade recipe) {
             recipe.input.toNetwork(location);
             recipe.ingredient.toNetwork(location);
             location.writeItem(recipe.result);
