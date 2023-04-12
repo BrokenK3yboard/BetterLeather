@@ -1,19 +1,23 @@
-package com.brokenkeyboard.leatheroverhaul.datagen;
+package com.brokenkeyboard.leatheroverhaul.datagen.recipe;
 
-import com.brokenkeyboard.leatheroverhaul.LeatherOverhaul;
 import com.brokenkeyboard.leatheroverhaul.Config;
+import com.brokenkeyboard.leatheroverhaul.LeatherOverhaul;
 import com.brokenkeyboard.leatheroverhaul.item.LeatherArmor;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+
+import static com.brokenkeyboard.leatheroverhaul.item.PotionKitUtils.getPotionEffect;
+import static com.brokenkeyboard.leatheroverhaul.item.PotionKitUtils.setPotionEffect;
 
 public class ArmorkitUpgrade extends net.minecraft.world.item.crafting.UpgradeRecipe {
     final Ingredient input;
@@ -46,6 +50,15 @@ public class ArmorkitUpgrade extends net.minecraft.world.item.crafting.UpgradeRe
         LeatherArmor.setBonusArmor(result, amount);
         LeatherArmor.setBonusArmorMax(result, amount);
         result.setDamageValue(result.getDamageValue() - repairCount);
+
+        MobEffectInstance effect = getPotionEffect(container.getItem(1));
+
+        if (effect != null) {
+            setPotionEffect(result, effect);
+        } else {
+            result.removeTagKey("potion_effect");
+        }
+
         return result;
     }
 

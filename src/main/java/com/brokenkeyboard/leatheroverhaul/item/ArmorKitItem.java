@@ -1,17 +1,22 @@
 package com.brokenkeyboard.leatheroverhaul.item;
 
 import com.brokenkeyboard.leatheroverhaul.Config;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
+
+import static com.brokenkeyboard.leatheroverhaul.item.PotionKitUtils.*;
 
 public class ArmorKitItem extends Item {
 
@@ -39,6 +44,13 @@ public class ArmorKitItem extends Item {
                 if(count > 0 && LeatherArmor.getBonusArmor(a) < bonusArmor) {
                     LeatherArmor.setBonusArmor(a, bonusArmor);
                     LeatherArmor.setBonusArmorMax(a, bonusArmor);
+
+                    if(getPotionEffect(stack) != null) {
+                        MobEffectInstance effect = getPotionEffect(stack);
+                        setPotionEffect(a, effect);
+                    } else {
+                        a.removeTagKey("potion_effect");
+                    }
                     count--;
                 }
             }
@@ -67,6 +79,12 @@ public class ArmorKitItem extends Item {
         return count;
     }
 
+    @Override
+    public void appendHoverText(ItemStack stack, Level level, List<Component> components, TooltipFlag tooltipFlag) {
+        if(getPotionEffect(stack) != null)
+            displayPotionEffect(stack, components);
+    }
+
     public int getUseDuration(ItemStack stack) {
         return 32;
     }
@@ -75,7 +93,15 @@ public class ArmorKitItem extends Item {
         return UseAnim.NONE;
     }
 
+    public boolean isFoil(ItemStack stack) {
+        return getPotionEffect(stack) != null;
+    }
+
     public boolean isEnchantable(ItemStack stack) {
+        return false;
+    }
+
+    public boolean isRepairable(ItemStack stack) {
         return false;
     }
 }

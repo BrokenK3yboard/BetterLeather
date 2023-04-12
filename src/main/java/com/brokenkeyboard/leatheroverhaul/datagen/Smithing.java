@@ -1,6 +1,7 @@
 package com.brokenkeyboard.leatheroverhaul.datagen;
 
 import com.brokenkeyboard.leatheroverhaul.LeatherOverhaul;
+import com.brokenkeyboard.leatheroverhaul.datagen.recipe.ArmorkitUpgrade;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;

@@ -1,4 +1,4 @@
-package com.brokenkeyboard.leatheroverhaul.datagen;
+package com.brokenkeyboard.leatheroverhaul.datagen.recipe;
 
 import com.brokenkeyboard.leatheroverhaul.LeatherOverhaul;
 import com.brokenkeyboard.leatheroverhaul.item.LeatherArmor;
@@ -41,7 +41,6 @@ public class LeatherRecipe extends CustomRecipe {
 
             if(leather.getItem() instanceof LeatherArmor) {
                 int damagePercent = 100 - (int)((double)(leather.getDamageValue()) / (double)leather.getMaxDamage() * 100);
-                System.out.println(damagePercent);
                 return new ItemStack(Items.LEATHER, damagePercent >= 50 ? 2 : 1);
             } else {
                 return new ItemStack(Items.LEATHER, 3);
