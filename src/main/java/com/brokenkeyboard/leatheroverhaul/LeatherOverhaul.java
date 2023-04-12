@@ -1,8 +1,9 @@
 package com.brokenkeyboard.leatheroverhaul;
 
-import com.brokenkeyboard.leatheroverhaul.datagen.ArmorkitUpgrade;
-import com.brokenkeyboard.leatheroverhaul.datagen.LeatherRecipe;
 import com.brokenkeyboard.leatheroverhaul.datagen.loot.LeatherDrops.LeatherDropsSerializer;
+import com.brokenkeyboard.leatheroverhaul.datagen.recipe.ArmorkitUpgrade;
+import com.brokenkeyboard.leatheroverhaul.datagen.recipe.LeatherRecipe;
+import com.brokenkeyboard.leatheroverhaul.datagen.recipe.PotionKitRecipe;
 import com.brokenkeyboard.leatheroverhaul.item.ArmorKitItem;
 import com.brokenkeyboard.leatheroverhaul.item.LeatherArmor;
 import com.brokenkeyboard.leatheroverhaul.item.LeatherBundle;
@@ -38,6 +39,7 @@ public class LeatherOverhaul
 
     public static final RegistryObject<RecipeSerializer<ArmorkitUpgrade>> KIT_UPGRADE = RECIPES.register("kit_upgrade", () -> ArmorkitUpgrade.Serializer.INSTANCE);
     public static final RegistryObject<RecipeSerializer<LeatherRecipe>> SCRAP_LEATHER = RECIPES.register("scrap_leather", () -> new SimpleRecipeSerializer<>(LeatherRecipe::new));
+    public static final RegistryObject<RecipeSerializer<PotionKitRecipe>> POTION_ARMORKIT = RECIPES.register("potion_armorkit", () -> new SimpleRecipeSerializer<>(PotionKitRecipe::new));
 
     public static final RegistryObject<LeatherDropsSerializer> LEATHER_COW = GLM.register("leather_cow", LeatherDropsSerializer::new);
 

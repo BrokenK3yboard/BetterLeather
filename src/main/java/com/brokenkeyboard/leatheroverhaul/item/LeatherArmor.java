@@ -3,23 +3,28 @@ package com.brokenkeyboard.leatheroverhaul.item;
 import com.brokenkeyboard.leatheroverhaul.LeatherOverhaul;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.DyeableArmorItem;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
+
+import static com.brokenkeyboard.leatheroverhaul.item.PotionKitUtils.displayPotionEffect;
+import static com.brokenkeyboard.leatheroverhaul.item.PotionKitUtils.getPotionEffect;
 
 public class LeatherArmor extends DyeableArmorItem {
 
@@ -40,10 +45,31 @@ public class LeatherArmor extends DyeableArmorItem {
         } else {
             amount = amount - getBonusArmor(stack);
             setBonusArmor(stack,0);
-            entity.getLevel().playLocalSound(entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_BREAK, entity.getSoundSource(),
-                    0.8F, 0.8F + entity.getLevel().random.nextFloat() * 0.4F, false);
+            stack.removeTagKey("potion_effect");
+        }
+
+        if(getBonusArmor(stack) > 0 && getPotionEffect(stack) != null) {
+            MobEffectInstance effectInstance = getPotionEffect(stack);
+            MobEffect effect = effectInstance.getEffect();
+            int duration = PotionKitUtils.getKitDuration(effectInstance);
+            int maxDuration = effect.equals(MobEffects.REGENERATION) ? (effectInstance.getDuration() * 2 / 5) : (effectInstance.getDuration() / 10);
+            int amplifier = effectInstance.getAmplifier();
+
+            if(entity.hasEffect(effect) && entity.getEffect(effect).getDuration() < maxDuration && entity.getEffect(effect).getAmplifier() == amplifier) {
+                MobEffectInstance currentEffect = entity.getEffect(effect);
+                MobEffectInstance newEffect = new MobEffectInstance(effect, Math.min(currentEffect.getDuration() + duration, maxDuration), amplifier);
+                entity.addEffect(newEffect);
+            } else {
+                entity.addEffect(new MobEffectInstance(effect, Math.min(duration, maxDuration), amplifier));
+            }
         }
         return amount;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Level level, List<Component> components, TooltipFlag tooltipFlag) {
+        if(getPotionEffect(stack) != null)
+            displayPotionEffect(stack, components);
     }
 
     @Override

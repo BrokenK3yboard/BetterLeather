@@ -64,5 +64,8 @@ public class Recipes extends RecipeProvider {
 
         SpecialRecipeBuilder.special((SimpleRecipeSerializer<?>) LeatherOverhaul.SCRAP_LEATHER.get())
                 .save(consumer, "scrap_leather");
+
+        SpecialRecipeBuilder.special((SimpleRecipeSerializer<?>) LeatherOverhaul.POTION_ARMORKIT.get())
+                .save(consumer, "potion_armorkit");
     }
 }
