@@ -7,6 +7,7 @@ import com.brokenkeyboard.leatheroverhaul.datagen.recipe.PotionKitRecipe;
 import com.brokenkeyboard.leatheroverhaul.item.ArmorKitItem;
 import com.brokenkeyboard.leatheroverhaul.item.LeatherArmor;
 import com.brokenkeyboard.leatheroverhaul.item.LeatherBundle;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.CreativeModeTab;
@@ -16,6 +17,7 @@ import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -52,10 +54,20 @@ public class LeatherOverhaul
 
     public LeatherOverhaul() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         Config.registerConfig();
         ITEMS.register(bus);
         ITEMS_OVERRIDE.register(bus);
         RECIPES.register(bus);
         GLM.register(bus);
+    }
+
+    private void setup(final FMLCommonSetupEvent event)
+    {
+        CauldronInteraction.WATER.put(LeatherOverhaul.LEATHER_HELMET.get(), CauldronInteraction.DYED_ITEM);
+        CauldronInteraction.WATER.put(LeatherOverhaul.LEATHER_CHESTPLATE.get(), CauldronInteraction.DYED_ITEM);
+        CauldronInteraction.WATER.put(LeatherOverhaul.LEATHER_LEGGINGS.get(), CauldronInteraction.DYED_ITEM);
+        CauldronInteraction.WATER.put(LeatherOverhaul.LEATHER_BOOTS.get(), CauldronInteraction.DYED_ITEM);
+        CauldronInteraction.WATER.put(LeatherOverhaul.BUNDLE.get(), CauldronInteraction.DYED_ITEM);
     }
 }
