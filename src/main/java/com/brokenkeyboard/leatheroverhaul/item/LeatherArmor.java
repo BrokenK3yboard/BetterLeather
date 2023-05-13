@@ -96,8 +96,12 @@ public class LeatherArmor extends DyeableArmorItem {
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        if (type == null || !type.equals("overlay") || LeatherArmor.getBonusArmor(stack) <= 0) return null;
-        return LeatherOverhaul.MOD_ID + ":textures/models/armor/leather_armored_layer_" + (slot.equals(EquipmentSlot.LEGS) ? 2 : 1) + "_overlay.png";
+        if (LeatherArmor.getBonusArmor(stack) <= 0) return null;
+        if (type == null) {
+            return LeatherOverhaul.MOD_ID + ":textures/models/armor/leather_armored_layer_" + (slot.equals(EquipmentSlot.LEGS) ? 2 : 1) + ".png";
+        } else {
+            return LeatherOverhaul.MOD_ID + ":textures/models/armor/leather_armored_layer_" + (slot.equals(EquipmentSlot.LEGS) ? 2 : 1) + "_overlay.png";
+        }
     }
 
     @Override
