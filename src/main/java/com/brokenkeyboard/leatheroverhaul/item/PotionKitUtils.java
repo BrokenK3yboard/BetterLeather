@@ -17,13 +17,13 @@ public class PotionKitUtils {
     public static void displayPotionEffect(ItemStack stack, List<Component> components) {
         MobEffectInstance effect = getPotionEffect(stack);
         MutableComponent mutablecomponent = Component.translatable(effect.getDescriptionId());
-        if (effect.getAmplifier() > 0) {
-            mutablecomponent = Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + effect.getAmplifier()));
-        }
 
-        if (effect.getDuration() > 20) {
+        if (effect.getAmplifier() > 0)
+            mutablecomponent = Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + effect.getAmplifier()));
+
+        if (effect.getDuration() > 20)
             mutablecomponent = Component.translatable("potion.withDuration", mutablecomponent, formatKitDuration(effect, 1.0F));
-        }
+
         components.add(mutablecomponent.withStyle(effect.getEffect().getCategory().getTooltipFormatting()));
     }
 
@@ -34,8 +34,8 @@ public class PotionKitUtils {
     }
 
     public static MobEffectInstance getPotionEffect(ItemStack stack) {
-        CompoundTag tag = stack.getOrCreateTagElement("potion_effect");
-        return MobEffectInstance.load(tag);
+        CompoundTag tag = stack.getTagElement("potion_effect");
+        return tag == null ? null : MobEffectInstance.load(tag);
     }
 
     public static int getKitDuration(MobEffectInstance effectInstance) {

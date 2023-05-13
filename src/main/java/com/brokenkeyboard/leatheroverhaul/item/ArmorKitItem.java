@@ -81,7 +81,7 @@ public class ArmorKitItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> components, TooltipFlag tooltipFlag) {
-        if(getPotionEffect(stack) != null)
+        if (getPotionEffect(stack) != null)
             displayPotionEffect(stack, components);
     }
 
