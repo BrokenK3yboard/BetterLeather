@@ -37,6 +37,8 @@ public class PotionKitRecipe extends CustomRecipe {
                 if(i.getItem().equals(Items.POTION)) {
                     MobEffectInstance effect = PotionUtils.getMobEffects(i).get(0);
                     setPotionEffect(result, effect);
+                } else if (i.getItem().equals(LeatherOverhaul.ARMOR_KIT.get())) {
+                    result.setDamageValue(i.getDamageValue());
                 }
             }
         }
