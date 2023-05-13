@@ -1,6 +1,6 @@
 package com.brokenkeyboard.leatheroverhaul.datagen.loot;
 
-import com.brokenkeyboard.leatheroverhaul.LeatherOverhaul;
+import com.brokenkeyboard.leatheroverhaul.Config;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -30,12 +30,12 @@ public class LeatherDrops extends LootModifier {
 
     @Override
     protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-        if(LeatherOverhaul.leatherDrops == 0) return generatedLoot;
+        if (Config.LEATHER_DROPS.get() == 0) return generatedLoot;
         Random rand = new Random();
         double rng = rand.nextDouble();
 
-        if(rng < chance)
-            generatedLoot.add(new ItemStack(Items.LEATHER, LeatherOverhaul.leatherDrops));
+        if (rng < chance)
+            generatedLoot.add(new ItemStack(Items.LEATHER, Config.LEATHER_DROPS.get()));
 
         return generatedLoot;
     }

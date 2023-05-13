@@ -1,7 +1,6 @@
 package com.brokenkeyboard.leatheroverhaul.datagen.recipe;
 
 import com.brokenkeyboard.leatheroverhaul.Config;
-import com.brokenkeyboard.leatheroverhaul.LeatherOverhaul;
 import com.brokenkeyboard.leatheroverhaul.item.LeatherArmor;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
@@ -37,7 +36,7 @@ public class ArmorkitUpgrade extends net.minecraft.world.item.crafting.UpgradeRe
         ItemStack stack = container.getItem(0);
         boolean kitMax = !(container.getItem(1).isDamaged());
         boolean notMax = LeatherArmor.getBonusArmor(stack) < (int)(stack.getMaxDamage() * (Config.KIT_BASE.get() + Config.KIT_BONUS.get()));
-        boolean damaged = (LeatherOverhaul.kitRepair == 0 || stack.isDamaged());
+        boolean damaged = (Config.KIT_REPAIR.get() == 0 || stack.isDamaged());
         return result && kitMax && (notMax || damaged);
     }
 
