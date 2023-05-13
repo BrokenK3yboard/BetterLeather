@@ -1,5 +1,6 @@
 package com.brokenkeyboard.leatheroverhaul.datagen.conditions;
 
+import com.brokenkeyboard.leatheroverhaul.Config;
 import com.brokenkeyboard.leatheroverhaul.LeatherOverhaul;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.crafting.conditions.ICondition;
@@ -17,7 +18,7 @@ public class HideBundleCondition implements ICondition {
 
     @Override
     public boolean test(IContext context) {
-        return LeatherOverhaul.hideBundle;
+        return Config.BUNDLE_CRAFT_HIDE.get();
     }
 
     @Override

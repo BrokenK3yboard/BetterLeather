@@ -1,6 +1,6 @@
 package com.brokenkeyboard.leatheroverhaul.datagen.loot;
 
-import com.brokenkeyboard.leatheroverhaul.LeatherOverhaul;
+import com.brokenkeyboard.leatheroverhaul.Config;
 import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -27,12 +27,12 @@ public class LeatherDrops extends LootModifier {
     @NotNull
     @Override
     protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-        if(LeatherOverhaul.leatherDrops == 0) return generatedLoot;
+        if (Config.LEATHER_DROPS.get() == 0) return generatedLoot;
         Random rand = new Random();
         double rng = rand.nextDouble();
 
-        if(rng < chance)
-            generatedLoot.add(new ItemStack(Items.LEATHER, LeatherOverhaul.leatherDrops));
+        if (rng < chance)
+            generatedLoot.add(new ItemStack(Items.LEATHER, Config.LEATHER_DROPS.get()));
 
         return generatedLoot;
     }

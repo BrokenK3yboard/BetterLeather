@@ -45,13 +45,6 @@ public class LeatherOverhaul
 
     public static final RegistryObject<LeatherDropsSerializer> LEATHER_COW = GLM.register("leather_cow", LeatherDropsSerializer::new);
 
-    public static int leatherDrops;
-    public static boolean hideBundle;
-    public static boolean leatherBundle;
-    public static double kitBase;
-    public static double kitBonus;
-    public static double kitRepair;
-
     public LeatherOverhaul() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
