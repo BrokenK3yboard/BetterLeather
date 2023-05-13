@@ -8,12 +8,9 @@ buildscript {
     }
 }
 
-plugins {
-    id 'eclipse'
-    id 'maven-publish'
-}
 apply plugin: 'net.minecraftforge.gradle'
-
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 
 version = "${mod_version}"
 group = 'com.brokenkeyboard.leatheroverhaul'
@@ -31,7 +28,6 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', 'leatheroverhaul'
-
             mods {
                 leatheroverhaul {
                     source sourceSets.main
@@ -41,25 +37,9 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', 'leatheroverhaul'
-
-            mods {
-                leatheroverhaul {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        gameTestServer {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'leatheroverhaul'
-
             mods {
                 leatheroverhaul {
                     source sourceSets.main
@@ -69,12 +49,9 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-
             args '--mod', 'leatheroverhaul', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-
             mods {
                 leatheroverhaul {
                     source sourceSets.main
@@ -90,7 +67,7 @@ repositories {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-40.2.0"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 }
 
 jar {
@@ -118,8 +95,4 @@ publishing {
             url "file://${project.projectDir}/mcmodsrepo"
         }
     }
-}
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
 }
