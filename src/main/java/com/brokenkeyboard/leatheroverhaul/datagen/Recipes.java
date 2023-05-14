@@ -13,10 +13,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
 import java.util.function.Consumer;
 
-public class Recipes extends RecipeProvider {
+public class Recipes extends RecipeProvider implements IConditionBuilder {
 
     public Recipes(DataGenerator generator) {
         super(generator);
@@ -26,12 +27,12 @@ public class Recipes extends RecipeProvider {
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
 
         ShapedRecipeBuilder.shaped(LeatherOverhaul.ARMOR_KIT.get())
-                .define('L', Items.LEATHER)
-                .define('S', Items.STRING)
+                .define('L', Tags.Items.LEATHER)
+                .define('S', Tags.Items.STRING)
                 .pattern("SL")
                 .pattern("LS")
-                .unlockedBy("has_string", has(Items.STRING))
-                .unlockedBy("has_leather", has(Items.LEATHER))
+                .unlockedBy("has_string", has(Tags.Items.STRING))
+                .unlockedBy("has_leather", has(Tags.Items.LEATHER))
                 .save(consumer);
 
         ConditionalRecipe.builder().addCondition(new HideBundleCondition())

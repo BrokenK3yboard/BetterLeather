@@ -13,7 +13,6 @@ public class Datagen {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
-        ExistingFileHelper fileHelper = event.getExistingFileHelper();
 
         if (event.includeServer()) {
             generator.addProvider(new Smithing(generator));

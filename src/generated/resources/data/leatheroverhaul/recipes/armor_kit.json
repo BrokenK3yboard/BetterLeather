@@ -6,10 +6,10 @@
   ],
   "key": {
     "L": {
-      "item": "minecraft:leather"
+      "tag": "forge:leather"
     },
     "S": {
-      "item": "minecraft:string"
+      "tag": "forge:string"
     }
   },
   "result": {
