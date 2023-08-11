@@ -9,12 +9,12 @@ buildscript {
 }
 
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'maven-publish'
 
 version = "${mod_version}"
 group = 'com.brokenkeyboard.leatheroverhaul'
-archivesBaseName = "${mod_name}-${mod_loader}-${minecraft_version}"
+archivesBaseName = "${mod_id}-${mod_loader}-${minecraft_version}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -73,10 +73,10 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "${mod_name}",
+                "Specification-Title"     : "${mod_id}",
                 "Specification-Vendor"    : "BrokenKeyboard",
                 "Specification-Version"   : "1",
-                "Implementation-Title"    : "${mod_name}",
+                "Implementation-Title"    : "${mod_id}",
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "BrokenKeyboard",
         ])
