@@ -14,6 +14,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 import static com.brokenkeyboard.leatheroverhaul.item.PotionKitUtils.*;
@@ -25,7 +26,7 @@ public class ArmorKitItem extends Item {
     }
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        if(leatherArmorCount(player) > 0) {
+        if (leatherArmorCount(player) > 0) {
             player.startUsingItem(hand);
             return InteractionResultHolder.consume(player.getItemInHand(hand));
         } else {
@@ -41,12 +42,13 @@ public class ArmorKitItem extends Item {
         for (ItemStack a : armor) {
             if (a.getItem() instanceof LeatherArmor) {
                 int bonusArmor = (int)(a.getMaxDamage() * Config.KIT_BASE.get());
-                if(count > 0 && LeatherArmor.getBonusArmor(a) < bonusArmor) {
+                if (count > 0 && LeatherArmor.getBonusArmor(a) < bonusArmor) {
                     LeatherArmor.setBonusArmor(a, bonusArmor);
                     LeatherArmor.setBonusArmorMax(a, bonusArmor);
 
-                    if(getPotionEffect(stack) != null) {
-                        MobEffectInstance effect = getPotionEffect(stack);
+                    MobEffectInstance effect = getPotionEffect(stack);
+
+                    if (effect != null) {
                         setPotionEffect(a, effect);
                     } else {
                         a.removeTagKey("potion_effect");
@@ -80,7 +82,7 @@ public class ArmorKitItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level level, List<Component> components, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
         if (getPotionEffect(stack) != null)
             displayPotionEffect(stack, components);
     }

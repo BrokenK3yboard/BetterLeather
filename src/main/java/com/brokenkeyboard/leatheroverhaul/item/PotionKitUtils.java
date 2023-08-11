@@ -10,12 +10,15 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class PotionKitUtils {
 
     public static void displayPotionEffect(ItemStack stack, List<Component> components) {
         MobEffectInstance effect = getPotionEffect(stack);
+        if (effect == null) return;
+
         MutableComponent mutablecomponent = Component.translatable(effect.getDescriptionId());
 
         if (effect.getAmplifier() > 0)
@@ -33,6 +36,7 @@ public class PotionKitUtils {
         stack.addTagElement("potion_effect", potionTag);
     }
 
+    @Nullable
     public static MobEffectInstance getPotionEffect(ItemStack stack) {
         CompoundTag tag = stack.getTagElement("potion_effect");
         return tag == null ? null : MobEffectInstance.load(tag);

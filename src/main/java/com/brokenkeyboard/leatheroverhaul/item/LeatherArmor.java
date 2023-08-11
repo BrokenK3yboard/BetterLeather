@@ -18,6 +18,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.UUID;
@@ -48,15 +49,17 @@ public class LeatherArmor extends DyeableArmorItem {
             stack.removeTagKey("potion_effect");
         }
 
-        if(getBonusArmor(stack) > 0 && getPotionEffect(stack) != null) {
-            MobEffectInstance effectInstance = getPotionEffect(stack);
+        MobEffectInstance effectInstance = getPotionEffect(stack);
+
+        if (getBonusArmor(stack) > 0 && effectInstance != null) {
             MobEffect effect = effectInstance.getEffect();
             int duration = PotionKitUtils.getKitDuration(effectInstance);
             int maxDuration = effect.equals(MobEffects.REGENERATION) ? (effectInstance.getDuration() * 2 / 5) : (effectInstance.getDuration() / 10);
             int amplifier = effectInstance.getAmplifier();
 
-            if(entity.hasEffect(effect) && entity.getEffect(effect).getDuration() < maxDuration && entity.getEffect(effect).getAmplifier() == amplifier) {
-                MobEffectInstance currentEffect = entity.getEffect(effect);
+            MobEffectInstance currentEffect = entity.getEffect(effect);
+
+            if (currentEffect != null && currentEffect.getDuration() < maxDuration && currentEffect.getAmplifier() == amplifier) {
                 MobEffectInstance newEffect = new MobEffectInstance(effect, Math.min(currentEffect.getDuration() + duration, maxDuration), amplifier);
                 entity.addEffect(newEffect);
             } else {
@@ -67,21 +70,21 @@ public class LeatherArmor extends DyeableArmorItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level level, List<Component> components, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
         if (getPotionEffect(stack) != null)
             displayPotionEffect(stack, components);
     }
 
     @Override
     public boolean isBarVisible(ItemStack stack) {
-        if(getBonusArmor(stack) > 0)
+        if (getBonusArmor(stack) > 0)
             return true;
         return super.isBarVisible(stack);
     }
 
     @Override
     public int getBarWidth(ItemStack stack) {
-        if(getBonusArmor(stack) > 0) {
+        if (getBonusArmor(stack) > 0) {
             return Math.min(1 + 12 * getBonusArmor(stack) / getBonusArmorMax(stack), 13);
         }
         return super.getBarWidth(stack);
@@ -89,13 +92,14 @@ public class LeatherArmor extends DyeableArmorItem {
 
     @Override
     public int getBarColor(ItemStack stack) {
-        if(getBonusArmor(stack) > 0)
+        if (getBonusArmor(stack) > 0)
             return BAR_COLOR;
         return super.getBarColor(stack);
     }
 
+    @Nullable
     @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, @Nullable String type) {
         if (LeatherArmor.getBonusArmor(stack) <= 0) return null;
         if (type == null) {
             return LeatherOverhaul.MOD_ID + ":textures/models/armor/leather_armored_layer_" + (slot.equals(EquipmentSlot.LEGS) ? 2 : 1) + ".png";

@@ -8,6 +8,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.UpgradeRecipeBuilder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
@@ -18,7 +19,7 @@ public class Smithing extends RecipeProvider {
     }
 
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildCraftingRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
         armorUpgrade(consumer, LeatherOverhaul.LEATHER_HELMET.get(), LeatherOverhaul.ARMOR_KIT.get());
         armorUpgrade(consumer, LeatherOverhaul.LEATHER_CHESTPLATE.get(), LeatherOverhaul.ARMOR_KIT.get());
         armorUpgrade(consumer, LeatherOverhaul.LEATHER_LEGGINGS.get(), LeatherOverhaul.ARMOR_KIT.get());
