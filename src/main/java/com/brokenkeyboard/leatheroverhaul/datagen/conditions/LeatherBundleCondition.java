@@ -21,6 +21,7 @@ public class LeatherBundleCondition implements ICondition {
         return Config.BUNDLE_CRAFT_LEATHER.get();
     }
 
+    @SuppressWarnings("removal")
     @Override
     public boolean test() {
         return false;

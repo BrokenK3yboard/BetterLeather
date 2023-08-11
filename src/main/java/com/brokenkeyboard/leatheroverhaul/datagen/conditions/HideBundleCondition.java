@@ -21,6 +21,7 @@ public class HideBundleCondition implements ICondition {
         return Config.BUNDLE_CRAFT_HIDE.get();
     }
 
+    @SuppressWarnings("removal")
     @Override
     public boolean test() {
         return false;
