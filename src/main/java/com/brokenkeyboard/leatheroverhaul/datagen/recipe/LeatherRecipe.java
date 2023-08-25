@@ -4,10 +4,12 @@ import com.brokenkeyboard.leatheroverhaul.LeatherOverhaul;
 import com.brokenkeyboard.leatheroverhaul.item.LeatherArmor;
 import com.google.common.collect.Lists;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -16,8 +18,8 @@ import net.minecraftforge.common.Tags;
 import java.util.List;
 
 public class LeatherRecipe extends CustomRecipe {
-    public LeatherRecipe(ResourceLocation location) {
-        super(location);
+    public LeatherRecipe(ResourceLocation location, CraftingBookCategory category) {
+        super(location, category);
     }
 
     @Override
@@ -27,7 +29,7 @@ public class LeatherRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer container) {
+    public ItemStack assemble(CraftingContainer container, RegistryAccess access) {
         List<ItemStack> list = Lists.newArrayList();
         if (validRecipe(list, container)) {
 

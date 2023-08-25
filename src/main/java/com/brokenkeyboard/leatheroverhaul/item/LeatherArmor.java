@@ -3,6 +3,7 @@ package com.brokenkeyboard.leatheroverhaul.item;
 import com.brokenkeyboard.leatheroverhaul.LeatherOverhaul;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
@@ -16,10 +17,9 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import javax.annotation.Nullable;
-import java.lang.reflect.Field;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -29,11 +29,17 @@ import static com.brokenkeyboard.leatheroverhaul.item.PotionKitUtils.getPotionEf
 
 public class LeatherArmor extends DyeableArmorItem {
 
-    private static final UUID[] ARMOR_UUID = getUUID();
     private static final int BAR_COLOR = Mth.color(0.4F, 0.4F, 1.0F);
 
-    public LeatherArmor(ArmorMaterial material, EquipmentSlot slot, Properties properties) {
-        super(material, slot, properties);
+    private static final EnumMap<ArmorItem.Type, UUID> ARMOR_UUID = Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266744_) -> {
+        p_266744_.put(ArmorItem.Type.BOOTS, UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"));
+        p_266744_.put(ArmorItem.Type.LEGGINGS, UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"));
+        p_266744_.put(ArmorItem.Type.CHESTPLATE, UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"));
+        p_266744_.put(ArmorItem.Type.HELMET, UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150"));
+    });
+
+    public LeatherArmor(ArmorMaterial material, ArmorItem.Type type, Properties properties) {
+        super(material, type, properties);
     }
 
     @Override
@@ -110,11 +116,11 @@ public class LeatherArmor extends DyeableArmorItem {
 
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-        if (!(slot == this.getSlot())) return super.getAttributeModifiers(slot, stack);
+        if (!(slot == this.getEquipmentSlot())) return super.getAttributeModifiers(slot, stack);
 
         Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
         double value = this.getDefense() + (LeatherArmor.getBonusArmor(stack) > 0 ? 1 : 0);
-        multimap.put(Attributes.ARMOR, new AttributeModifier(ARMOR_UUID[slot.getIndex()], "Armor modifier", value, AttributeModifier.Operation.ADDITION));
+        multimap.put(Attributes.ARMOR, new AttributeModifier(ARMOR_UUID.get(this.type), "Armor modifier", value, AttributeModifier.Operation.ADDITION));
         return multimap;
     }
 
@@ -132,16 +138,5 @@ public class LeatherArmor extends DyeableArmorItem {
 
     public static int getBonusArmor(ItemStack stack) {
         return stack.getOrCreateTag().getInt("bonus_armor");
-    }
-
-    private static UUID[] getUUID() {
-        UUID[] ARMOR_UUID = new UUID[0];
-        try {
-            Field field = ObfuscationReflectionHelper.findField(ArmorItem.class, "f_40380_");
-            ARMOR_UUID = (UUID[]) field.get(ARMOR_UUID);
-        } catch (IllegalAccessException exception) {
-            exception.printStackTrace();
-        }
-        return ARMOR_UUID;
     }
 }

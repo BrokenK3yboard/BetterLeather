@@ -1,12 +1,13 @@
 {
   "type": "leatheroverhaul:kit_upgrade",
-  "addition": {
-    "item": "leatheroverhaul:armor_kit"
-  },
+  "addition": [],
   "base": {
     "item": "minecraft:leather_helmet"
   },
   "result": {
     "item": "minecraft:leather_helmet"
+  },
+  "template": {
+    "item": "leatheroverhaul:armor_kit"
   }
 }

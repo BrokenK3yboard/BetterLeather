@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_armor_kit": {
+    "has_leather_chestplate": {
       "conditions": {
         "items": [
           {
             "items": [
-              "leatheroverhaul:armor_kit"
+              "minecraft:leather_chestplate"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_armor_kit",
+      "has_leather_chestplate",
       "has_the_recipe"
     ]
   ],
@@ -30,5 +30,6 @@
     "recipes": [
       "minecraft:leather_chestplate_smithing"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

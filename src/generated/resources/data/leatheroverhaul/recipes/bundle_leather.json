@@ -9,6 +9,7 @@
       ],
       "recipe": {
         "type": "minecraft:crafting_shaped",
+        "category": "equipment",
         "group": "bundles",
         "key": {
           "L": {
@@ -25,7 +26,8 @@
         ],
         "result": {
           "item": "minecraft:bundle"
-        }
+        },
+        "show_notification": true
       }
     }
   ]

@@ -55,11 +55,7 @@ public class PotionKitUtils {
     }
 
     public static String formatKitDuration(MobEffectInstance effect, float value) {
-        if (effect.isNoCounter()) {
-            return "**:**";
-        } else {
-            int i = Mth.floor((float)getKitDuration(effect) * value);
-            return StringUtil.formatTickDuration(i);
-        }
+        int i = Mth.floor((float)getKitDuration(effect) * value);
+        return StringUtil.formatTickDuration(i);
     }
 }

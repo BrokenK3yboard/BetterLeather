@@ -3,14 +3,14 @@ package com.brokenkeyboard.leatheroverhaul.datagen;
 import com.brokenkeyboard.leatheroverhaul.LeatherOverhaul;
 import com.brokenkeyboard.leatheroverhaul.datagen.conditions.HideBundleCondition;
 import com.brokenkeyboard.leatheroverhaul.datagen.conditions.LeatherBundleCondition;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.SpecialRecipeBuilder;
+import com.brokenkeyboard.leatheroverhaul.datagen.recipe.ArmorkitUpgrade;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
@@ -20,14 +20,19 @@ import java.util.function.Consumer;
 
 public class Recipes extends RecipeProvider implements IConditionBuilder {
 
-    public Recipes(DataGenerator generator) {
-        super(generator);
+    public Recipes(PackOutput output) {
+        super(output);
     }
 
     @Override
-    protected void buildCraftingRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
 
-        ShapedRecipeBuilder.shaped(LeatherOverhaul.ARMOR_KIT.get())
+        armorUpgrade(consumer, LeatherOverhaul.ARMOR_KIT.get(), LeatherOverhaul.LEATHER_HELMET.get());
+        armorUpgrade(consumer, LeatherOverhaul.ARMOR_KIT.get(), LeatherOverhaul.LEATHER_CHESTPLATE.get());
+        armorUpgrade(consumer, LeatherOverhaul.ARMOR_KIT.get(), LeatherOverhaul.LEATHER_LEGGINGS.get());
+        armorUpgrade(consumer, LeatherOverhaul.ARMOR_KIT.get(), LeatherOverhaul.LEATHER_BOOTS.get());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, LeatherOverhaul.ARMOR_KIT.get())
                 .define('L', Tags.Items.LEATHER)
                 .define('S', Tags.Items.STRING)
                 .pattern("SL")
@@ -38,7 +43,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 
         ConditionalRecipe.builder().addCondition(new HideBundleCondition())
                 .addRecipe(
-                        ShapedRecipeBuilder.shaped(LeatherOverhaul.BUNDLE.get())
+                        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, LeatherOverhaul.BUNDLE.get())
                                 .define('S', Tags.Items.STRING)
                                 .define('H', Items.RABBIT_HIDE)
                                 .pattern("SHS")
@@ -52,7 +57,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 
         ConditionalRecipe.builder().addCondition(new LeatherBundleCondition())
                 .addRecipe(
-                        ShapedRecipeBuilder.shaped(LeatherOverhaul.BUNDLE.get())
+                        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, LeatherOverhaul.BUNDLE.get())
                                 .define('S', Tags.Items.STRING)
                                 .define('L', Tags.Items.LEATHER)
                                 .pattern("SLS")
@@ -64,10 +69,20 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
                                 ::save
                 ).generateAdvancement().build(consumer, new ResourceLocation(LeatherOverhaul.MOD_ID, LeatherOverhaul.BUNDLE.get() + "_leather"));
 
-        SpecialRecipeBuilder.special((SimpleRecipeSerializer<?>) LeatherOverhaul.SCRAP_LEATHER.get())
+        SpecialRecipeBuilder.special(LeatherOverhaul.SCRAP_LEATHER.get())
                 .save(consumer, "scrap_leather");
 
-        SpecialRecipeBuilder.special((SimpleRecipeSerializer<?>) LeatherOverhaul.POTION_ARMORKIT.get())
+        SpecialRecipeBuilder.special(LeatherOverhaul.POTION_ARMORKIT.get())
                 .save(consumer, "potion_armorkit");
+    }
+
+    public static SmithingTransformRecipeBuilder upgradeRecipe(Ingredient template, Ingredient ingredient, Ingredient addition, Item result) {
+        return new SmithingTransformRecipeBuilder(ArmorkitUpgrade.Serializer.INSTANCE, template, ingredient, addition, RecipeCategory.COMBAT, result);
+    }
+
+    protected static void armorUpgrade(Consumer<FinishedRecipe> consumer, Item template, Item armor) {
+        upgradeRecipe(Ingredient.of(template), Ingredient.of(armor), Ingredient.of(ItemStack.EMPTY), armor)
+                .unlocks("has_" + getItemName(armor), has(armor))
+                .save(consumer, getItemName(armor) + "_smithing");
     }
 }

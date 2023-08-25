@@ -39,5 +39,6 @@
     "recipes": [
       "leatheroverhaul:armor_kit"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }
