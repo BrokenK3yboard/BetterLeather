@@ -44,7 +44,7 @@ public class LeatherOverhaul
     public static final RegistryObject<RecipeSerializer<LeatherRecipe>> SCRAP_LEATHER = RECIPES.register("scrap_leather", () -> new SimpleRecipeSerializer<>(LeatherRecipe::new));
     public static final RegistryObject<RecipeSerializer<PotionKitRecipe>> POTION_ARMORKIT = RECIPES.register("potion_armorkit", () -> new SimpleRecipeSerializer<>(PotionKitRecipe::new));
 
-    public static final RegistryObject<LeatherDropsSerializer> LEATHER_COW = GLM.register("leather_cow", LeatherDropsSerializer::new);
+    public static final RegistryObject<LeatherDropsSerializer> LEATHER_DROPS = GLM.register("leather_drops", LeatherDropsSerializer::new);
 
     public LeatherOverhaul() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -56,8 +56,7 @@ public class LeatherOverhaul
         GLM.register(bus);
     }
 
-    private void setup(final FMLCommonSetupEvent event)
-    {
+    private void setup(final FMLCommonSetupEvent event) {
         CauldronInteraction.WATER.put(LeatherOverhaul.LEATHER_HELMET.get(), CauldronInteraction.DYED_ITEM);
         CauldronInteraction.WATER.put(LeatherOverhaul.LEATHER_CHESTPLATE.get(), CauldronInteraction.DYED_ITEM);
         CauldronInteraction.WATER.put(LeatherOverhaul.LEATHER_LEGGINGS.get(), CauldronInteraction.DYED_ITEM);

@@ -1,5 +1,4 @@
 {
-  "type": "leatheroverhaul:leather_cow",
   "conditions": [
     {
       "condition": "minecraft:alternative",
@@ -15,5 +14,5 @@
       ]
     }
   ],
-  "chance": 1.0
+  "type": "leatheroverhaul:leather_drops"
 }

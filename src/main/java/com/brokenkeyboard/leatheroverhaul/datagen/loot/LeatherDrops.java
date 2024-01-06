@@ -3,7 +3,6 @@ package com.brokenkeyboard.leatheroverhaul.datagen.loot;
 import com.brokenkeyboard.leatheroverhaul.Config;
 import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -13,41 +12,31 @@ import net.minecraftforge.common.loot.LootModifier;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Random;
 
 public class LeatherDrops extends LootModifier {
 
-    private final double chance;
-
-    public LeatherDrops(LootItemCondition[] conditionsIn, double chance) {
-        super(conditionsIn);
-        this.chance = chance;
+    public LeatherDrops(LootItemCondition[] conditions) {
+        super(conditions);
     }
 
     @NotNull
     @Override
     protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-        if (Config.LEATHER_DROPS.get() == 0) return generatedLoot;
-        Random rand = new Random();
-        double rng = rand.nextDouble();
-
-        if (rng < chance)
-            generatedLoot.add(new ItemStack(Items.LEATHER, Config.LEATHER_DROPS.get()));
-
+        if (Config.LEATHER_DROPS.get() <= 0) return generatedLoot;
+        generatedLoot.add(new ItemStack(Items.LEATHER, Config.LEATHER_DROPS.get()));
         return generatedLoot;
     }
 
     public static class LeatherDropsSerializer extends GlobalLootModifierSerializer<LeatherDrops> {
 
         @Override
-        public LeatherDrops read(ResourceLocation location, JsonObject object, LootItemCondition[] ailootcondition) {
-            final double chance = GsonHelper.getAsDouble(object, "chance");
-            return new LeatherDrops(ailootcondition, chance);
+        public LeatherDrops read(ResourceLocation location, JsonObject object, LootItemCondition[] conditions) {
+            return new LeatherDrops(conditions);
         }
 
         @Override
         public JsonObject write(LeatherDrops instance) {
-            return new JsonObject();
+            return this.makeConditions(instance.conditions);
         }
     }
 }
