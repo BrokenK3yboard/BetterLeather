@@ -57,8 +57,7 @@ public class LeatherOverhaul
         GLM.register(bus);
     }
 
-    private void setup(final FMLCommonSetupEvent event)
-    {
+    private void setup(final FMLCommonSetupEvent event) {
         CauldronInteraction.WATER.put(LeatherOverhaul.LEATHER_HELMET.get(), CauldronInteraction.DYED_ITEM);
         CauldronInteraction.WATER.put(LeatherOverhaul.LEATHER_CHESTPLATE.get(), CauldronInteraction.DYED_ITEM);
         CauldronInteraction.WATER.put(LeatherOverhaul.LEATHER_LEGGINGS.get(), CauldronInteraction.DYED_ITEM);
