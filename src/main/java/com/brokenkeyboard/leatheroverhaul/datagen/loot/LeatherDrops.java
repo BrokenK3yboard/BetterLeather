@@ -13,30 +13,20 @@ import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
 import java.util.function.Supplier;
 
 public class LeatherDrops extends LootModifier {
-    public static final Supplier<Codec<LeatherDrops>> CODEC = Suppliers.memoize(()
-            -> RecordCodecBuilder.create(inst -> codecStart(inst).and(Codec.DOUBLE
-            .fieldOf("chance").forGetter(m -> m.chance)).apply(inst, LeatherDrops::new)));
 
-    private final double chance;
+    public static final Supplier<Codec<LeatherDrops>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(inst -> codecStart(inst).apply(inst, LeatherDrops::new)));
 
-    public LeatherDrops(LootItemCondition[] conditionsIn, double chance) {
-        super(conditionsIn);
-        this.chance = chance;
+    public LeatherDrops(LootItemCondition[] conditions) {
+        super(conditions);
     }
 
     @Override
     protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-        if (Config.LEATHER_DROPS.get() == 0) return generatedLoot;
-        Random rand = new Random();
-        double rng = rand.nextDouble();
-
-        if (rng < chance)
-            generatedLoot.add(new ItemStack(Items.LEATHER, Config.LEATHER_DROPS.get()));
-
+        if (Config.LEATHER_DROPS.get() <= 0) return generatedLoot;
+        generatedLoot.add(new ItemStack(Items.LEATHER, Config.LEATHER_DROPS.get()));
         return generatedLoot;
     }
 

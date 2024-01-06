@@ -2,7 +2,7 @@
   "type": "leatheroverhaul:leather_cow",
   "conditions": [
     {
-      "condition": "minecraft:alternative",
+      "condition": "minecraft:any_of",
       "terms": [
         {
           "condition": "forge:loot_table_id",
@@ -14,6 +14,5 @@
         }
       ]
     }
-  ],
-  "chance": 1.0
+  ]
 }
