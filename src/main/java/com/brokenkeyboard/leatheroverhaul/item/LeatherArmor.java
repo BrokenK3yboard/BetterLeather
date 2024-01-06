@@ -5,7 +5,6 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -28,8 +27,6 @@ import static com.brokenkeyboard.leatheroverhaul.item.PotionKitUtils.displayPoti
 import static com.brokenkeyboard.leatheroverhaul.item.PotionKitUtils.getPotionEffect;
 
 public class LeatherArmor extends DyeableArmorItem {
-
-    private static final int BAR_COLOR = Mth.color(0.4F, 0.4F, 1.0F);
 
     private static final EnumMap<ArmorItem.Type, UUID> ARMOR_UUID = Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266744_) -> {
         p_266744_.put(ArmorItem.Type.BOOTS, UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"));
@@ -79,28 +76,6 @@ public class LeatherArmor extends DyeableArmorItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
         if (getPotionEffect(stack) != null)
             displayPotionEffect(stack, components);
-    }
-
-    @Override
-    public boolean isBarVisible(ItemStack stack) {
-        if (getBonusArmor(stack) > 0)
-            return true;
-        return super.isBarVisible(stack);
-    }
-
-    @Override
-    public int getBarWidth(ItemStack stack) {
-        if (getBonusArmor(stack) > 0) {
-            return Math.min(1 + 12 * getBonusArmor(stack) / getBonusArmorMax(stack), 13);
-        }
-        return super.getBarWidth(stack);
-    }
-
-    @Override
-    public int getBarColor(ItemStack stack) {
-        if (getBonusArmor(stack) > 0)
-            return BAR_COLOR;
-        return super.getBarColor(stack);
     }
 
     @Nullable

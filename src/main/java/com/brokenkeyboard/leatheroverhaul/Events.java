@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterItemDecorationsEvent;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -56,6 +57,14 @@ public class Events {
         @SubscribeEvent
         public static void colorItems(RegisterColorHandlersEvent.Item event) {
             event.register((stack, value) -> value > 0 ? -1 : ((DyeableLeatherItem)stack.getItem()).getColor(stack), LeatherOverhaul.BUNDLE.get());
+        }
+
+        @SubscribeEvent
+        public static void renderDurability(RegisterItemDecorationsEvent event) {
+            event.register(LeatherOverhaul.LEATHER_HELMET.get(), RenderDurability.INSTANCE);
+            event.register(LeatherOverhaul.LEATHER_CHESTPLATE.get(), RenderDurability.INSTANCE);
+            event.register(LeatherOverhaul.LEATHER_LEGGINGS.get(), RenderDurability.INSTANCE);
+            event.register(LeatherOverhaul.LEATHER_BOOTS.get(), RenderDurability.INSTANCE);
         }
     }
 }
